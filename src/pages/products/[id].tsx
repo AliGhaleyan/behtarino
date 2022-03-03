@@ -1,19 +1,28 @@
 import { NextPage } from "next";
+import { useSelector } from "react-redux";
+import { END } from "redux-saga";
 import Layout from "../../components/layout/Layout";
+import { Product } from "../../data/model/product.model";
+import { ProductAction } from "../../data/state/product/action";
+import { AppState, SagaStore, wrapper } from "../../data/state/store";
 
-export const getServerSideProps = (contex: any) => {
-    const id = parseInt(contex.query.id);
-    
-    return { props: { id } }
-}
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ query }: any) => {
+    const id = parseInt(query.id);
+    store.dispatch(ProductAction.find(id));
+    store.dispatch(END);
+
+    await (store as SagaStore)?.sagaTask?.toPromise();
+});
 
 interface Props {
-    id: number
+    //
 }
 
-const ProductView: NextPage<Props> = ({id}) => {
+const ProductView: NextPage<Props> = ({ }) => {
+    const product = useSelector<AppState>(x => x.product?.payload);
+
     return <Layout title="Product">
-        {id}
+        {(product as Product)?.description}
     </Layout>;
 };
 
