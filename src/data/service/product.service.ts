@@ -5,4 +5,6 @@ export class ProductService extends BaseService {
     readonly find = (id: number): Promise<Product> => {
         return this.get(`products/${id}`);
     }
+
+    readonly getAll = (): Promise<Product[]> => this.get("products");
 }
