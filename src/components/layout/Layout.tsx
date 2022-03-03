@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ title, description, children }) => {
-    return <div className="d-flex flex-column min-vh-100 bg-light">
+    return <div className="d-flex flex-column min-vh-100">
         <TitleMeta title={title} description={description} />
         <main className="flex-grow-1">
             {children}

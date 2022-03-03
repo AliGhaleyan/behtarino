@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useSelector } from "react-redux";
 import { END } from "redux-saga";
 import Layout from "../../components/layout/Layout";
+import ProductInfo from "../../components/product/ProductInfo";
 import { Product } from "../../data/model/product.model";
 import { ProductAction } from "../../data/state/product/action";
 import { AppState, SagaStore, wrapper } from "../../data/state/store";
@@ -22,7 +23,7 @@ const ProductView: NextPage<Props> = ({ }) => {
     const product = useSelector<AppState>(x => x.product?.payload);
 
     return <Layout title="Product">
-        {(product as Product)?.description}
+        <ProductInfo product={product as Product} />
     </Layout>;
 };
 
