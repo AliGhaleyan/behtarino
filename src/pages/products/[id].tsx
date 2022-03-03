@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { END } from "redux-saga";
 import Layout from "../../components/layout/Layout";
@@ -20,10 +22,16 @@ interface Props {
 }
 
 const ProductView: NextPage<Props> = ({ }) => {
+    const router = useRouter();
     const product = useSelector<AppState>(x => x.product?.payload);
 
-    return <Layout title="Product">
-        <ProductInfo product={product as Product} />
+    useEffect(() => {
+        if (!product)
+            router.push('/404');
+    }, []);
+
+    return <Layout title={(product as Product).title} description={(product as Product).description}>
+        {product ? <ProductInfo product={product as Product} /> : null}
     </Layout>;
 };
 

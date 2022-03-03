@@ -1,0 +1,30 @@
+@import "./styles/_variables";
+
+.boldText {
+    font-family: $font-bold;
+}
+
+.normalText {
+    font-family: $font-normal;
+    font-weight: 400 !important;
+}
+
+.mediumText {
+    font-family: $font-medium;
+}
+
+.semiBoldText {
+    font-family: $font-semi-bold;
+}
+
+.regularText {
+    font-family: $font-regular;
+}
+
+.lightText {
+    font-family: $font-light;
+}
+
+.quicksandText {
+    font-family: $font-quicksand-medium;
+}
