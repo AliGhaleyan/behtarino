@@ -10,13 +10,13 @@ import { AppState, SagaStore, wrapper } from "../../data/state/store";
 
 export const getStaticPaths = async () => {
     const { getAll } = new ProductService();
-    const products = await getAll();
+    const products = await getAll();    
 
     return { paths: products.map(x => ({ params: { id: x.id.toString() } })), fallback: false };
 };
 
-export const getStaticProps = wrapper.getStaticProps(store => async ({ params: { id } }) => {
-    store.dispatch(ProductAction.find(id));
+export const getStaticProps = wrapper.getStaticProps(store => async ({ params }) => {
+    store.dispatch(ProductAction.find(parseInt(params?.id as string)));
     store.dispatch(END);
 
     await (store as SagaStore)?.sagaTask?.toPromise();
@@ -29,7 +29,7 @@ interface Props {
 }
 
 const ProductView: NextPage<Props> = ({ }) => {
-    const product = useSelector<AppState>(x => x.product?.payload);
+    const product = useSelector<AppState>(x => x.server.product?.payload);
 
     return <Layout title={(product as Product).title} description={(product as Product).description}>
         {product ? <ProductInfo product={product as Product} /> : null}
