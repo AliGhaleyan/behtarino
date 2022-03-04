@@ -38,11 +38,13 @@ const ProductInfo: FC<Props> = ({ product }) => {
                             {product.description}
                         </div>
                         <div className="mt-5 mt-lg-auto mb-5 d-flex align-items-center justify-content-between">
-                            <Button variant={"primary"} className="text-uppercase boldText rounded-border-sm px-4 py-3 d-flex justify-content-center align-items-center">
+                            <Button variant={"primary"} className="shadow text-uppercase boldText rounded-border-sm px-4 py-3 d-flex justify-content-center align-items-center">
                                 <FontAwesomeIcon icon={faShoppingCart} className="me-3" size="lg" />
                                 Add To Card
                             </Button>
-                            <FontAwesomeIcon icon={faShareAlt} size="2x" className="text-muted cursor-pointer" />
+                            <span>
+                                <FontAwesomeIcon icon={faShareAlt} size="2x" className="text-muted cursor-pointer" />
+                            </span>
                         </div>
                     </div>
                 </Col>

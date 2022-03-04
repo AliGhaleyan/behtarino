@@ -15,6 +15,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ q
     store.dispatch(END);
 
     await (store as SagaStore)?.sagaTask?.toPromise();
+
+    return {props: {}}
 });
 
 interface Props {
@@ -23,12 +25,12 @@ interface Props {
 
 const ProductView: NextPage<Props> = ({ }) => {
     const router = useRouter();
-    const product = useSelector<AppState>(x => x.product?.payload);
+    const product = useSelector<AppState>(x => x.server.product?.payload);
 
     useEffect(() => {
         if (!product)
             router.push('/404');
-    }, []);
+    }, [product, router]);
 
     return <Layout title={(product as Product).title} description={(product as Product).description}>
         {product ? <ProductInfo product={product as Product} /> : null}
